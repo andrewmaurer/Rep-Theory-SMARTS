@@ -1,0 +1,145 @@
+\documentclass[twoside,11pt,reqno]{amsart}
+
+\usepackage{macros}
+\usepackage{color,soul}
+\usepackage{tikz-cd}
+% \usepackage{showkeys}
+
+%\renewcommand{\vec}{\overrightarrow}
+\renewcommand{\e}{\vec{e}}
+
+\oddsidemargin .2in \evensidemargin .2in \textwidth 6in
+
+\begin{document}
+
+\title{Representation Theory SMARTS}
+\author{Andrew Maurer}
+\address{Department of Mathematics\\University of Georgia\\Athens, GA 30602}
+\email{andrew.b.maurer@gmail.com}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+  Many abstract mathematical objects arise as symmetries in some way. Representation theory is, at its core, the study of ways to realize these abstract symmetries. Oftentimes, this involves the use of high-powered techniques from algebraic geometry, homological algebra, and even algebraic topology. In these lectures we will be concerned with representations of finite groups. Most of these results, however, carry over just as well for representations of compact Lie groups. I'm planning to cover the following two topics:
+
+  (1) Module based. The goal is to prove Mashke's theorem.
+
+  (2) Character based. What can we hope to learn from a single class function?
+\end{abstract}
+
+\section{Representations, Modules, and Maschke}
+\label{sec:intro}
+
+\subsection{}
+
+Representation theory translates hard algebra problems into (possibly easier) linear algebra problems. There are many theorems in group theory which were originally proved via representation theory, and whose representation-theoretic proofs are much simpler and more comprehensible. Two such theorems (called \emph{strict applications} because the statements do not involve representation theory) follow:
+\begin{theorem}[Burnside's $p^aq^b$ theorem]
+  Let $p$ and $q$ be prime numbers, with $a,b \geq 0$. Every group of order $p^a q^b$ is solvable.
+\end{theorem}
+
+\begin{theorem}[Classification of finite simple groups]
+  
+\end{theorem}
+
+\subsection{Representations}
+
+Finite groups, Lie groups, Lie algebras, and algebraic groups all arise as symmetries of various objects. The main idea of representation theory is to take these symmetries and make them into symmetries of particular objects. The hope is that by looking at ways to represent these algebraic objects as
+
+\begin{definition}
+  Let $G$ be a finite group and $k$ a field. A \emph{representation} of $G$ is a pair $(V,\rho)$ where $V$ is a $k$-vector space and $\rho: G \to \GL(V)$ is a group homomorphism. Sometimes $(V,\rho)$ is called a $G$-module.
+\end{definition}
+
+If $V$ is a representation of $G$ then this makes $V$ into a $G$-set, i.e., $G \times V \to V$ sends $(g,v) \mapsto \varphi_g(v)$.
+
+\begin{example}
+  When $G = S_3$ is the group of permutations of $\{1,2,3\}$, then $G$ acts on the set of basis vectors $\vec{e_1}, \vec{e_2}, \vec{e_3} \subseteq k^3$ via
+  \[
+    \sigma . (a_1 \vec{e}_1 + a_2 \vec{e}_2 + a_3 \vec{e}_3) = a_1 \vec{e}_{\sigma^{-1}(1)} + a_2 \vec{e}_{\sigma^{-1}(2)} + a_3 \vec{e}_{\sigma^{-1}(3)}
+  \]
+\end{example}
+
+\subsection{$kG$-modules}
+\label{sec:kG-modules}
+
+The definition of a representation is nice, but it defining a new mathematical object is scary -- suddenly you have to develop all results from scratch. We would rather recognize $G$-representations using well-known math, so we can use all of the results which have been proved by other\footnote{Smarter?} people.
+
+\begin{definition}
+  Let $k$ be a field, the \emph{group ring} $kG$ of a finite group $G$ is a $k$-vector space given an algebra structure. As a vector space, $kG$ has dimension $|G|$, with basis given by elements of $G$:
+  \[
+    \mathcal{B}_{kG}  = \{ e_g : g \in G\}.
+  \]
+  In other words, this is the free vector space on $G$.
+
+  The multiplicative structure comes from the group structure:
+  \[
+e_g \cdot e_h = e_{g \cdot h}
+  \]
+  And extend by linearity
+  \[
+    \sum_g a_g e_g \cdot \sum_g b_g e_g = \sum c_g e_g
+  \]
+  where $c_g = \sum_{h_1 \cdot h_2 = g} a_{h_1} b_{h_2}$.
+\end{definition}
+
+Now we're ready to state a theorem:
+
+\begin{theorem}
+  The category of $G$-representations over $k$, and the category of $kG$-modules, are equivalent.
+\end{theorem}
+\begin{proof}
+Let's just see how to get a $G$-representation from a $kG$-module, and vice versa. (Will do in talk. Not here.)  
+\end{proof}
+
+This affords us all the tools of homological algebra (since $\mod(R)$ is always an Abelian category)  -- we can talk about simples, indecomposables, projectives, injective, cohomology groups, kernels, images, exact sequences.
+
+\subsection{Maschke}
+\label{sec:maschke}
+
+Let's start out with two definitions, which exist for modules.
+
+\begin{definition}
+  A $kG$-module $M$ is \emph{simple} if $M$ has exactly two $kG$-submodules.
+\end{definition}
+\begin{definition}
+  A $kG$-module $M$ is \emph{decomposable} if there are nonzero $kG$-submodules $M_1$ and $M_2$ such that $M = M_1 \oplus M_2$. It is \emph{indecomposable} if no such $M_1$ and $M_2$ exist.
+\end{definition}
+
+Let's try to prove the following theorem:
+
+\begin{proposition}[This is false!]
+\color{red} Simple $kG$-modules are the same as indecomposable $kG$-modules.
+\end{proposition}
+\begin{proof}
+  Let's first try to show that simple modules are indecomposable. We can do it by contrapositive, i.e., by showing decomposable $\Rightarrow$ not simple. Take a decomposable module $M = M_1 \oplus M_2$. Then $M_1 \oplus 0 \leq M$ is a submodules of $M$. So $0, M_1 \oplus 0, 0 \oplus M_2$, and $M$ are four distinct submodules of $M$, and $M$ is not simple.
+
+  Now let's try to prove the converse, i.e., that indecomposable modules are simple. Again, by contrapositive we will attempt to prove not-simple $\Rightarrow$ decomposable. So take some not-simple module $M$ with a submodule $0 \lneq M_1 \lneq M$. Our goal is to find a submodule $M_2$ which is a \emph{complement} of $M_1$. Since $M_2 \leq M$, we need $kG.m_2 \in M_2$ for any $m_2 \in M_2$.
+
+  \[
+    \begin{tikzcd}
+    0 \arrow[r]& M_1 \arrow[r] & M \arrow[r] & M/M_1 \arrow[r] \arrow[l,dashed,bend right=25] & 0
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\section{Module-based}
+\label{sec:module-based}
+
+\subsection{}
+
+This lecture will explain how to take the tools of module theory and homological algebra and apply them to representation theory. 
+
+
+
+\section{Character theory}
+\label{sec:character-theory}
+
+
+
+
+\bibliographystyle{plain}{}
+\bibliography{references}
+
+
+
+\end{document}
